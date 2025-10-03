@@ -1,1 +1,1 @@
-These files are for CTFs that can be attempted at [hackcessgranted]](https://www.hackcessgranted.com)
+These files are for CTFs that can be attempted at [hackcessgranted](https://www.hackcessgranted.com)
