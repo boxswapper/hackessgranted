@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Don't let your eyes deceive you</title>
+    <style>
+        .screen-reader-only {
+            position: absolute;
+            left: -10000px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Don't let your eyes decieve you</h1>
+    <p>To find the flag, you'll need to rely on another sense.</p>
+    <p>Can you solve it without looking at the code?</p>
+    <p>Visual inspection won't reveal the secret!</p>
+    <p>It may help if you "Read Aloud."</p>
+
+    <!-- Hidden content only accessible to screen readers -->
+    <div class="screen-reader-only" aria-live="polite">
+        Congratulations! The flag is: hg{SCREEN_READERS_ROCK}
+    </div>
+
+    <!-- Alternative method using aria-hidden text that screen readers will still read -->
+    <div aria-hidden="true" style="font-size: 0;">
+        Flag: hg{SCREEN_READERS_ROCK}
+    </div>
+</body>
+</html>
