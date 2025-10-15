@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KeyQuest CTF</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6b46c1',
+                        secondary: '#f472b6',
+                        dark: '#0f172a'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .page {
+            transition: all 0.3s ease;
+        }
+        .hidden-page {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+        }
+        .active-page {
+            opacity: 1;
+            pointer-events: all;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-dark text-gray-100 min-h-screen flex flex-col">
+    <main class="container mx-auto px-4 py-16 flex-grow flex flex-col items-center justify-center">
+        <!-- Page 1: Introduction -->
+        <div id="page1" class="page active-page text-center max-w-3xl">
+            <h1 class="text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">KeyQuest CTF</h1>
+            <p class="text-xl mb-8">Find the flag by completing 5 key sequence challenges</p>
+            <div class="flex justify-center space-x-8 mb-12">
+                <div class="text-center">
+                    <div class="w-16 h-16 rounded-lg bg-gray-800 flex items-center justify-center mx-auto mb-2 border-2 border-primary">
+                        <i data-feather="arrow-up" class="w-8 h-8 text-primary"></i>
+                    </div>
+                    <span class="text-sm">Up</span>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 rounded-lg bg-gray-800 flex items-center justify-center mx-auto mb-2 border-2 border-secondary">
+                        <i data-feather="arrow-down" class="w-8 h-8 text-secondary"></i>
+                    </div>
+                    <span class="text-sm">Down</span>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 rounded-lg bg-gray-800 flex items-center justify-center mx-auto mb-2 border-2 border-primary">
+                        <i data-feather="arrow-left" class="w-8 h-8 text-primary"></i>
+                    </div>
+                    <span class="text-sm">Left</span>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 rounded-lg bg-gray-800 flex items-center justify-center mx-auto mb-2 border-2 border-secondary">
+                        <i data-feather="arrow-right" class="w-8 h-8 text-secondary"></i>
+                    </div>
+                    <span class="text-sm">Right</span>
+                </div>
+            </div>
+            <p class="mb-4 text-gray-400">Current sequence: <span id="sequence" class="font-mono text-primary">_</span></p>
+            <p class="text-sm text-gray-500">For step 1, enter: ↑↑↓↓←→←→</p>
+        </div>
+
+        <!-- Page 2: Step 1 -->
+        <div id="page2" class="page hidden-page text-center max-w-3xl">
+            <h2 class="text-3xl font-bold mb-6 text-primary">Step 1/5 Complete</h2>
+            <p class="text-xl mb-8">Nice! Now onto step 2...</p>
+            <div class="mb-8 p-6 bg-gray-800 rounded-lg border border-gray-700">
+                <p class="text-gray-400 mb-2">Hint for step 2:</p>
+                <p class="font-mono text-primary">"The code is down, down, up, up"</p>
+            </div>
+            <p class="text-gray-400">Enter the correct sequence to proceed</p>
+        </div>
+
+        <!-- Page 3: Step 2 -->
+        <div id="page3" class="page hidden-page text-center max-w-3xl">
+            <h2 class="text-3xl font-bold mb-6 text-secondary">Step 2/5 Complete</h2>
+            <p class="text-xl mb-8">Halfway there!</p>
+            <div class="mb-8 p-6 bg-gray-800 rounded-lg border border-gray-700">
+                <p class="text-gray-400 mb-2">Hint for step 3:</p>
+                <p class="font-mono text-primary">"Right, right, left, left"</p>
+            </div>
+            <p class="text-gray-400">Enter the correct sequence to proceed</p>
+        </div>
+
+        <!-- Page 4: Step 3 -->
+        <div id="page4" class="page hidden-page text-center max-w-3xl">
+            <h2 class="text-3xl font-bold mb-6 text-primary">Step 3/5 Complete</h2>
+            <p class="text-xl mb-8">Keep going!</p>
+            <div class="mb-8 p-6 bg-gray-800 rounded-lg border border-gray-700">
+                <p class="text-gray-400 mb-2">Hint for step 4:</p>
+                <p class="font-mono text-primary">"Up, down, up, down"</p>
+            </div>
+            <p class="text-gray-400">Enter the correct sequence to proceed</p>
+        </div>
+
+        <!-- Page 5: Step 4 -->
+        <div id="page5" class="page hidden-page text-center max-w-3xl">
+            <h2 class="text-3xl font-bold mb-6 text-secondary">Step 4/5 Complete</h2>
+            <p class="text-xl mb-8">Final step!</p>
+            <div class="mb-8 p-6 bg-gray-800 rounded-lg border border-gray-700">
+                <p class="text-gray-400 mb-2">Hint for step 5:</p>
+                <p class="font-mono text-primary">"Left, right, left, right"</p>
+            </div>
+            <p class="text-gray-400">Enter the correct sequence to reveal the flag</p>
+        </div>
+
+        <!-- Flag Page -->
+        <div id="flag-page" class="page hidden-page text-center max-w-3xl">
+            <h2 class="text-3xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">CTF Flag Found!</h2>
+            <div class="mb-8 p-8 bg-gradient-to-br from-dark to-gray-900 rounded-lg border-2 border-dashed border-secondary">
+                <div class="text-5xl mb-4">🚩</div>
+                <p class="font-mono text-xl bg-gray-900 p-4 rounded inline-block">hc{NO_ONE_CAN_SEE}</p>
+            </div>
+            <button id="reset-btn" class="px-6 py-3 bg-primary hover:bg-primary-600 rounded-lg font-medium transition">Reset Challenge</button>
+        </div>
+    </main>
+
+    <footer class="py-6 text-center text-gray-500 text-sm">
+        <p>KeyQuest CTF - Use arrow keys to complete the sequences</p>
+        <button id="footer-reset-btn" class="mt-4 px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded text-sm transition">Reset Challenge</button>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            feather.replace();
+            
+            const pages = ['page1', 'page2', 'page3', 'page4', 'page5', 'flag-page'];
+            const sequences = [
+                ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight'],
+                ['ArrowDown', 'ArrowDown', 'ArrowUp', 'ArrowUp'],
+                ['ArrowRight', 'ArrowRight', 'ArrowLeft', 'ArrowLeft'],
+                ['ArrowUp', 'ArrowDown', 'ArrowUp', 'ArrowDown'],
+                ['ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight']
+            ];
+            
+            let currentSequence = [];
+            let currentPage = 0;
+
+            function showPage(index) {
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.add('hidden-page');
+                    page.classList.remove('active-page');
+                });
+                document.getElementById(pages[index]).classList.remove('hidden-page');
+                document.getElementById(pages[index]).classList.add('active-page');
+                currentPage = index;
+            }
+
+            function checkSequence() {
+                const sequenceDisplay = document.getElementById('sequence');
+                sequenceDisplay.textContent = currentSequence.map(key => {
+                    switch(key) {
+                        case 'ArrowUp': return '↑';
+                        case 'ArrowDown': return '↓';
+                        case 'ArrowLeft': return '←';
+                        case 'ArrowRight': return '→';
+                        default: return key;
+                    }
+                }).join('') || '_';
+                
+                if (currentPage < sequences.length) {
+                    const requiredSeq = sequences[currentPage];
+                    if (currentSequence.length === requiredSeq.length) {
+                        const isMatch = currentSequence.every((key, i) => key === requiredSeq[i]);
+                        if (isMatch) {
+                            currentSequence = [];
+                            showPage(currentPage + 1);
+                        } else {
+                            currentSequence = [];
+                            showPage(0);
+                        }
+                    }
+                }
+            }
+
+            document.addEventListener('keydown', function(e) {
+                if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+                    currentSequence.push(e.key);
+                    checkSequence();
+                }
+            });
+
+            function resetChallenge() {
+                currentSequence = [];
+                document.getElementById('sequence').textContent = '_';
+                showPage(0);
+            }
+
+            document.getElementById('reset-btn').addEventListener('click', resetChallenge);
+            document.getElementById('footer-reset-btn').addEventListener('click', resetChallenge);
+        });
+    </script>
+</body>
+</html>
+
